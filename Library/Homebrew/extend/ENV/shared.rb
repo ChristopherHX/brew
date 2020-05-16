@@ -35,6 +35,7 @@ module SharedEnvExtension
   # @private
   def reset
     SANITIZED_VARS.each { |k| delete(k) }
+    self["MACOSX_DEPLOYMENT_TARGET"] = ENV["HOMEBREW_MACOSX_DEPLOYMENT_TARGET"]
   end
 
   def remove_cc_etc

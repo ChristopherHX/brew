@@ -21,7 +21,7 @@ module OS
     # This can be compared to numerics, strings, or symbols
     # using the standard Ruby Comparable methods.
     def full_version
-      @full_version ||= Version.new(`/usr/bin/sw_vers -productVersion`.chomp)
+      @full_version ||= Version.new((ENV["HOMEBREW_MACOSX_DEPLOYMENT_TARGET"] || `/usr/bin/sw_vers -productVersion`).chomp)
     end
 
     def prerelease?
@@ -109,7 +109,7 @@ module OS
     # Returns the path to an SDK or nil, following the rules set by #sdk.
     def sdk_path(v = nil)
       s = sdk(v)
-      s.path unless s.nil?
+      ENV["HOMEBREW_SDKROOT"] || s.path unless s.nil?
     end
 
     def default_cc
